@@ -102,6 +102,8 @@ Weather getWeather(double lon, double lat, std::string myKey)
 
    	    weather.temperature = jsonData["main"]["temp"].asDouble() - kel_to_c;
             weather.pressure = jsonData["main"]["pressure"].asDouble();
+	    /// set default pressure for absurd values
+	    if(weather.pressure < 800 || weather.pressure > 1200) weather.pressure = 1013;
 	    weather.relhum = jsonData["main"]["humidity"].asDouble();
 	    weather.dewpoint = getDewPoint(weather.temperature, weather.relhum);
 
